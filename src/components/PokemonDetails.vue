@@ -1,25 +1,20 @@
 <template>
   <div class="pokemon-details">
     <div class="header">
-      <h2>Выбранный покемон</h2>
+      <h2>Selected Pokemon</h2>
     </div>
     
     <div class="content-wrapper">
       <div v-if="loading" class="loading-state">
         <div class="spinner"></div>
-        <span>Загрузка деталей</span>
+        <span>Loading details...</span>
       </div>
       
       <div v-else-if="error" class="error-state">
         {{ error }}
       </div>
       
-      <transition-group 
-        v-else-if="selectedPokemons.length > 0" 
-        name="pokemon-card" 
-        tag="div" 
-        class="pokemon-grid"
-      >
+      <div v-else-if="selectedPokemons.length > 0" class="pokemon-grid">
         <div 
           v-for="pokemon in selectedPokemons" 
           :key="pokemon.name" 
@@ -67,7 +62,7 @@
             </div>
           </div>
         </div>
-      </transition-group>
+      </div>
       
       <div v-else class="empty-state">
         No Pokemon selected
@@ -124,17 +119,15 @@ export default {
 
 <style scoped>
 .pokemon-details {
-  height: 100vh;
   width: 400px;
-  min-width: 400px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
   background: #f8fafc;
   border-left: 1px solid #e2e8f0;
   overflow: hidden;
 }
+
 .header {
   padding: 20px;
   background: white;
@@ -143,50 +136,39 @@ export default {
   z-index: 2;
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex-shrink: 0;
 }
 
-
-h2 {
-  font-size: 1.5rem;
-  color: #1e3a8a;
-  margin: 0;
-  text-align: center;
-  font-weight: 600;
-}
 .content-wrapper {
   flex: 1;
-  overflow-y: auto;
-  padding: 0 16px; 
-  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
-
 
 .pokemon-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  width: 100%;
-  padding: 16px 0; 
-  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+  overflow-y: auto;
+  margin-right: -16px;
+  padding-right: 16px;
 }
+
 .pokemon-card {
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
   border: 1px solid #e2e8f0;
   position: relative;
-  width: calc(100% - 1px);
-  box-sizing: border-box; 
-}
-
-
-.pokemon-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .image-container {
@@ -197,6 +179,7 @@ h2 {
   justify-content: center;
   background: linear-gradient(to bottom, #f0f4f8, #e0e8f0);
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .pokemon-image {
@@ -207,9 +190,7 @@ h2 {
 
 .card-content {
   padding: 18px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
 }
 
 h3 {
@@ -292,6 +273,7 @@ h3 {
   height: 100%;
   gap: 12px;
   color: #1e3a8a;
+  flex-shrink: 0;
 }
 
 .spinner {
@@ -310,6 +292,7 @@ h3 {
   color: #dc2626;
   text-align: center;
   margin: 20px;
+  flex-shrink: 0;
 }
 
 .empty-state {
@@ -319,20 +302,10 @@ h3 {
   height: 100%;
   color: #64748b;
   font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
-}
-
-.pokemon-card-enter-active,
-.pokemon-card-leave-active {
-  transition: all 0.3s ease;
-}
-
-.pokemon-card-enter-from,
-.pokemon-card-leave-to {
-  opacity: 0;
-  transform: translateY(20px);
 }
 </style>
