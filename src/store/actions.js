@@ -9,7 +9,7 @@ export default {
       const response = await axios.get('https://pokeapi.co/api/v2/type');
       const types = response.data.results;
       
-      // Загружаем покемонов для каждого типа
+     
       const typesWithPokemon = await Promise.all(
         types.map(async type => {
           const typeData = await axios.get(type.url);

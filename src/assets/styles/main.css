@@ -1,5 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap');
 
+:root {
+  --header-height: 60px;
+  --scrollbar-width: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* Блокируем скролл страницы */
+}
+
+
 /* Base styles */
 body {
   margin: 0;
@@ -47,9 +64,12 @@ body {
 
 /* Scrollable areas */
 .scrollable-area {
+  height: calc(100% - 60px); /* 60px - высота заголовка */
+  position: relative;
   overflow-y: auto;
-  flex-grow: 1;
-  padding-right: 8px; /* For scrollbar space */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 /* Custom scrollbar */
@@ -69,6 +89,13 @@ body {
 
 .scrollable-area::-webkit-scrollbar-thumb:hover {
   background: #6baed6;
+}
+.pokemon-list {
+  height: 300px; /* Фиксированная высота */
+  min-height: 300px; /* Запрещаем уменьшение */
+  overflow-y: auto;
+  position: relative;
+  contain: strict; /* Максимальная оптимизация */
 }
 
 /* Headers */
